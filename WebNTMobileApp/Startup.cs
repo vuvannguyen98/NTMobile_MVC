@@ -13,6 +13,9 @@ using WebNTMobileApp.Models;
 using WebNTMobileApp.Services;
 using WebNTMobileApp.Data.EF;
 using WebNTMobileApp.Data.Entities;
+using AutoMapper;
+using WebNTMobileApp.Data.IRpositories;
+using WebNTMobileApp.Application.Interfaces;
 
 namespace WebNTMobileApp
 {
@@ -40,8 +43,14 @@ namespace WebNTMobileApp
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
+            services.AddSingleton(Mapper.Configuration);
+            services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
+
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<DbInitializer>();
+            services.AddTransient<IProductCategoryRepository, IProductCategoryRepository>();
+            services.AddTransient<IProductCategoryService, IProductCategoryService>();
+
             services.AddMvc();
         }
 
