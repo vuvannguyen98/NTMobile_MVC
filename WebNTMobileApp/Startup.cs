@@ -17,6 +17,7 @@ using AutoMapper;
 using WebNTMobileApp.Data.IRpositories;
 using WebNTMobileApp.Application.Interfaces;
 
+
 namespace WebNTMobileApp
 {
     public class Startup
@@ -39,7 +40,10 @@ namespace WebNTMobileApp
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
+
             // Add application services.
+            services.AddAutoMapper();
+
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
 
@@ -47,7 +51,9 @@ namespace WebNTMobileApp
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddTransient<IEmailSender, EmailSender>();
+
             services.AddTransient<DbInitializer>();
+
             services.AddTransient<IProductCategoryRepository, IProductCategoryRepository>();
             services.AddTransient<IProductCategoryService, IProductCategoryService>();
 
@@ -55,7 +61,7 @@ namespace WebNTMobileApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,DbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -64,7 +70,7 @@ namespace WebNTMobileApp
                 app.UseDatabaseErrorPage();
             }
             else
-            {
+            {       
                 app.UseExceptionHandler("/Home/Error");
             }
 
@@ -78,7 +84,6 @@ namespace WebNTMobileApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            dbInitializer.Seed().Wait();
         }
     }
 }

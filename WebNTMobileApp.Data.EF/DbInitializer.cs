@@ -21,6 +21,7 @@ namespace WebNTMobileApp.Data.EF
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         public async Task Seed()
         {
             if (!_roleManager.Roles.Any())
@@ -266,6 +267,7 @@ namespace WebNTMobileApp.Data.EF
                 });
             }
             await _context.SaveChangesAsync();
+
         }
     }
 }

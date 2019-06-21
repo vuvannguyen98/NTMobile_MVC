@@ -121,8 +121,7 @@ namespace WebNTMobileApp.Data.Entities
         public string SeoAlias { set; get; }
 
         [StringLength(255)]
-
-        public string SeoKeyWords { set;get; }
+        public string SeoKeyWords { set; get; }
         [StringLength(255)]
         public string SeoDescription { set; get; }
 

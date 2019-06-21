@@ -14,6 +14,7 @@ using WebNTMobileApp.Data.EF.Extensions;
 using WebNTMobileApp.Data.Entities;
 using WebNTMobileApp.Data.Interfaces;
 
+
 namespace WebNTMobileApp.Data.EF
 {
     public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
@@ -110,5 +111,17 @@ namespace WebNTMobileApp.Data.EF
         }
     }
 
-    
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    {
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build();
+            var builder = new DbContextOptionsBuilder<AppDbContext>();
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            builder.UseSqlServer(connectionString);
+            return new AppDbContext(builder.Options);
+        }
+    }
 }
