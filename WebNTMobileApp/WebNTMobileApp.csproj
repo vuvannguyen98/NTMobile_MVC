@@ -18,4 +18,12 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebNTMobileApp.Application\WebNTMobileApp.Application.csproj" />
+    <ProjectReference Include="..\WebNTMobileApp.Data.EF\WebNTMobileApp.Data.EF.csproj" />
+    <ProjectReference Include="..\WebNTMobileApp.Data\WebNTMobileApp.Data.csproj" />
+    <ProjectReference Include="..\WebNTMobileApp.Infrastructure\WebNTMobileApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\WebNTMobileApp.Utilities\WebNTMobileApp.Utilities.csproj" />
+  </ItemGroup>
+
 </Project>
